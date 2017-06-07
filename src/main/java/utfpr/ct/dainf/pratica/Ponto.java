@@ -7,7 +7,10 @@ package utfpr.ct.dainf.pratica;
  * @author Wilson Horstmeyer Bogado <wilson@utfpr.edu.br>
  */
 public class Ponto {
-    private double x, y, z;
+
+    double x;
+    double y;
+    double z;
 
     public Ponto() {
     }

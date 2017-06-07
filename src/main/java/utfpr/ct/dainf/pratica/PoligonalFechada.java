@@ -11,16 +11,23 @@ package utfpr.ct.dainf.pratica;
  */
 public class PoligonalFechada extends Poligonal {
     
-    public PoligonalFechada(int v){
-        super(v);
+    public PoligonalFechada(int vertices) {
+        super(vertices);
     }
     
     @Override
-    public double getComprimento(){
-        int tam = getN();
-        double comprimento1 = super.getComprimento();
-        double comprimento2 = get(tam-1).dist(get(0));
+    public double getComprimento() {
+        int i;
+        double comprimento = 0;
         
-    return comprimento1+comprimento2;
+        for(i = 0; i < this.getN(); i++) {
+            if(i == this.getN() - 1)
+                comprimento = comprimento + this.get(this.getN() - 1).dist(this.get(0));
+            else
+                comprimento = comprimento + this.get(i).dist(this.get(i+1));
+        }
+        
+        return comprimento;
     }
+    
 }

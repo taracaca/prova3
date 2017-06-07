@@ -17,15 +17,20 @@ import utfpr.ct.dainf.pratica.PontoXY;
 public class Pratica {
 
     public static void main(String[] args) {
-        PoligonalFechada p = new PoligonalFechada(3);
-        PontoXZ p1 = new PontoXZ(-3,2);
-        PontoXZ p2 = new PontoXZ(-3,6);
-        PontoXZ p3 = new PontoXZ(0,2);
-        p.set(0, (Ponto2D)p1);
-        p.set(1, (Ponto2D)p2);
-        p.set(2, (Ponto2D)p3);
+       
+        PoligonalFechada poligonal = new PoligonalFechada(3);
+        PontoXZ zero = new PontoXZ(-3,2);
+        PontoXZ um = new PontoXZ(-3,6);
+        PontoXZ dois = new PontoXZ(0,2);
+        double comprimento;
         
-        System.out.println("Comprimento da Poligonal = " + p.getComprimento());
+        poligonal.set(0, zero);
+        poligonal.set(1, um);
+        poligonal.set(2, dois);
+
+        comprimento = poligonal.getComprimento();
+        
+        System.out.println("Comprimento da poligonal = " + comprimento);
     }
     
 }

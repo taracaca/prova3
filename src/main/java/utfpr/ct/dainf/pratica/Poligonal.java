@@ -2,7 +2,7 @@ package utfpr.ct.dainf.pratica;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import utfpr.ct.dainf.pratica.Ponto2D;
 /**
  * UTFPR - Universidade Tecnológica Federal do Paraná
  * DAINF - Departamento Acadêmico de Informática
@@ -10,51 +10,76 @@ import java.util.List;
  * @author Wilson Horstmeyer Bogado <wilson@utfpr.edu.br>
  * @param <T> Tipo do ponto
  */
- 
 public class Poligonal {
     private Ponto2D[] vertices;
-    private Ponto2D plano = null;
     
-    public Poligonal(int v){
-        if(v < 2)
+    public Poligonal(int vertices) {
+        
+        if(vertices < 2)
             throw new RuntimeException("Poligonal deve ter ao menos 2 vértices");
-        vertices = new Ponto2D[v];
+        
+        this.vertices = new Ponto2D[vertices];
+        
+        for(int i = 0; i < vertices; i++)
+            this.vertices[i] = new Ponto2D() {};
+        
     }
     
-    public int getN(){
-    
-    return vertices.length;
+    public int getN() {
+        return vertices.length;
     }
     
-    public Ponto2D get(int n){
-    Ponto2D p = null;
-        if(n >= 0 && n < vertices.length)
-            p = vertices[n];
-        else
-            throw new RuntimeException("get(i) índice inválido");
-    return p;
+    public Ponto2D get(int posicao) {
+        if(posicao < 0 || posicao >= vertices.length)
+            return null;
+        return vertices[posicao];
     }
     
-    public void set(int n, Ponto2D p){
-        if(plano == null){
-            plano = p;
+    public void set(int posicao, Ponto2D ponto) {
+        Ponto2D primeiro = new Ponto2D() {};
+        int i, achou = 0;
+        
+        
+        for(i = 0; i < this.vertices.length; i++) {
+            if(this.vertices[i].getX() != 0 || this.vertices[i].getY() != 0 ||
+                    this.vertices[i].getZ() != 0) {
+                primeiro = this.vertices[i];
+                achou = 1;
+            }
+            if(achou == 1)
+                break;
         }
-        if(plano.getClass()!=p.getClass()){
-            throw new RuntimeException("Vértices devem estar no mesmo plano");
-        }
-        if(n >= 0 && n < vertices.length)
-            vertices[n] = p;
-        else
-           throw new RuntimeException("get(i) índice inválido");
+        
+        
+        
+        if(achou == 1){
+            if(posicao > 0 && posicao < vertices.length) {
+                if(primeiro.getX() == 0) {
+                    if(ponto.getX() != 0)
+                        throw new RuntimeException("Vértices devem estar no mesmo plano");
+                }
+                else if(primeiro.getY() == 0) {
+                    if(ponto.getY() != 0)
+                        throw new RuntimeException("Vértices devem estar no mesmo plano");
+                }
+                else if(primeiro.getY() == 0) {
+                    if(ponto.getY() != 0)
+                        throw new RuntimeException("Vértices devem estar no mesmo plano");
+                }
+            }
+        } 
+        if(posicao > 0 && posicao < vertices.length)
+            vertices[posicao] = ponto;
     }
     
-    public double getComprimento(){
-        double comprimento=0;
-        int n;
-        for(n=0; n<getN()-1; n++){
-            comprimento = vertices[n].dist(vertices[n+1]) + comprimento;
-        }
-    return comprimento;
+    public double getComprimento() {
+        int i;
+        double comprimento = 0;
+        
+        for(i = 0; i < vertices.length -1; i++)
+            comprimento = comprimento + this.get(i).dist(this.get(i+1));
+
+        return comprimento;
     }
     
 }
