@@ -5,29 +5,30 @@
  */
 package utfpr.ct.dainf.pratica;
 
+import java.util.Iterator;
+
 /**
  *
  * @author Ayrton
  */
-public class PoligonalFechada extends Poligonal {
-    
-    public PoligonalFechada(int vertices) {
-        super(vertices);
-    }
-    
-    @Override
-    public double getComprimento() {
-        int i;
-        double comprimento = 0;
-        
-        for(i = 0; i < this.getN(); i++) {
-            if(i == this.getN() - 1)
-                comprimento = comprimento + this.get(this.getN() - 1).dist(this.get(0));
-            else
-                comprimento = comprimento + this.get(i).dist(this.get(i+1));
+public class PoligonalFechada<T extends Ponto2D> extends Poligonal {
+   @Override
+    public double getComprimento()
+    {
+        Iterator<T> it = vertices.iterator();
+        double d, s = 0;
+        T p, q = it.next();
+        while(it.hasNext())
+        {
+            p = q;
+            q = it.next();
+            d = Math.sqrt(Math.pow(p.getX()-q.getX(), 2)+Math.pow(p.getY()-q.getY(), 2)+Math.pow(p.getZ()-q.getZ(), 2));
+            s += d;
         }
-        
-        return comprimento;
+        it = vertices.iterator();
+        p = it.next();
+        d = Math.sqrt(Math.pow(p.getX()-q.getX(), 2)+Math.pow(p.getY()-q.getY(), 2)+Math.pow(p.getZ()-q.getZ(), 2));
+        s += d;
+        return s;
     }
-    
 }
